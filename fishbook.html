@@ -4,31 +4,13 @@
 <body>
     <h1>Tripboard</h1>
     {{> loginButtons}}
-    {{> tripboard}}
-    {{> addTripForm}}
     {{> locationboard}}
     {{> addLocationForm}}
+    {{> tripboard}}
+    {{> addTripForm}}
+    {{> catchboard}}
+    {{> addCatchForm}}
 </body>
-
-<template name="tripboard">
-    <h2>Trips:</h2>
-	<ul>
-	    {{#each trip}}
-	        <li class="trip {{selectedTrip}}">{{name}}: {{score}}</li>
-	    {{/each}}
-    </ul>
-
-    <p>
-
-    	<input type="button" class="increment" value="Add catch">
-    	<input type="button" class="remove" value="Remove Trip">
-
-    </p>
-
-	{{#if showSelectedTrip}}
-	Selected Trip: {{showSelectedTrip.name}}
-	{{/if}}
-</template>
 
 <template name="locationboard">
     <h2>Locations:</h2>
@@ -38,22 +20,10 @@
         {{/each}}
     </ul>
     <p>
+        {{#if showSelectedLocation}}
         <input type="button" class="remove" value="Remove Location">
-
+        {{/if}}
     </p>
-
-    {{#if showSelectedLocation}}
-    Selected Trip: {{showSelectedLocation.name}}
-    {{/if}}
-</template>
-
-<template name="addTripForm">
-    {{#if currentUser}}
-        <form>
-            <input type="text" name="tripName">
-            <input type="submit" value="Add Trip">
-        </form>
-    {{/if}}
 </template>
 
 <template name="addLocationForm">
@@ -63,4 +33,55 @@
             <input type="submit" value="Add Location">
         </form>
     {{/if}}
+</template>
+
+<template name="tripboard">
+    <h2>Trips:</h2>
+	<ul>
+	    {{#each trip}}
+	        <li class="trip {{selectedTrip}}">
+            {{name}}: {{locationName}}, {{score}}
+            </li>
+	    {{/each}}
+    </ul>
+
+    <p>
+        {{#if showSelectedTrip}}
+    	<input type="button" class="increment" value="Add catch">
+    	<input type="button" class="remove" value="Remove Trip">
+        {{/if}}
+    </p>
+</template>
+
+<template name="addTripForm">
+    {{#if currentUser}}{{#if showSelectedLocation}}
+        <form>
+            <input type="text" name="tripName">
+            <input type="submit" value="Add Trip">
+          <input type="text" class="form-control datetimepicker"   data-DateTimePicker name="tripStart" placeholder="Pick a Date">
+        </form>
+    {{/if}}{{/if}}
+</template>
+
+<template name="catchboard">
+    <h2>Catches:</h2>
+    <ul>
+        {{#each catch}}
+            <li class="catch {{selectedCatch}}">{{name}}</li>
+        {{/each}}
+    </ul>
+    <p>
+        {{#if showSelectedCatch}}
+        <input type="button" class="remove" value="Remove Catch">
+        {{/if}}
+    </p>
+</template>
+
+<template name="addCatchForm">
+    {{#if currentUser}}{{#if showSelectedTrip}}
+        <form>
+            <input type="text" name="catchName">
+            <input type="submit" value="Add Catch">
+        </form>
+    {{/if}}{{/if}}
 </template>
