@@ -1,0 +1,66 @@
+<head>
+    <title>Tripboard</title>
+</head>
+<body>
+    <h1>Tripboard</h1>
+    {{> loginButtons}}
+    {{> tripboard}}
+    {{> addTripForm}}
+    {{> locationboard}}
+    {{> addLocationForm}}
+</body>
+
+<template name="tripboard">
+    <h2>Trips:</h2>
+	<ul>
+	    {{#each trip}}
+	        <li class="trip {{selectedTrip}}">{{name}}: {{score}}</li>
+	    {{/each}}
+    </ul>
+
+    <p>
+
+    	<input type="button" class="increment" value="Add catch">
+    	<input type="button" class="remove" value="Remove Trip">
+
+    </p>
+
+	{{#if showSelectedTrip}}
+	Selected Trip: {{showSelectedTrip.name}}
+	{{/if}}
+</template>
+
+<template name="locationboard">
+    <h2>Locations:</h2>
+    <ul>
+        {{#each location}}
+            <li class="location {{selectedLocation}}">{{name}}</li>
+        {{/each}}
+    </ul>
+    <p>
+        <input type="button" class="remove" value="Remove Location">
+
+    </p>
+
+    {{#if showSelectedLocation}}
+    Selected Trip: {{showSelectedLocation.name}}
+    {{/if}}
+</template>
+
+<template name="addTripForm">
+    {{#if currentUser}}
+        <form>
+            <input type="text" name="tripName">
+            <input type="submit" value="Add Trip">
+        </form>
+    {{/if}}
+</template>
+
+<template name="addLocationForm">
+    {{#if currentUser}}
+        <form>
+            <input type="text" name="locationName">
+            <input type="submit" value="Add Location">
+        </form>
+    {{/if}}
+</template>
